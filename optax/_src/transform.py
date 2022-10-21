@@ -850,10 +850,7 @@ def scale_by_sm3(
       return coeffs[0]*g**2 + coeffs[1]*functools.reduce(jnp.minimum, v)
 
   def _new_mu(g, i):
-    if g.ndim < 2:
-      return g
-    else:
-      return jnp.max(g, axis=other_axes(i, g.ndim))
+    return g if g.ndim < 2 else jnp.max(g, axis=other_axes(i, g.ndim))
 
   def other_axes(idx, ndim):
     return list(range(idx)) + list(range(idx+1, ndim))

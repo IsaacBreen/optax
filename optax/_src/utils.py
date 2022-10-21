@@ -31,17 +31,12 @@ def tile_second_to_last_dim(a):
 
 def canonicalize_dtype(dtype):
   """Canonicalise a dtype, skip if None."""
-  if dtype is not None:
-    return jax.dtypes.canonicalize_dtype(dtype)
-  return dtype
+  return jax.dtypes.canonicalize_dtype(dtype) if dtype is not None else dtype
 
 
 def cast_tree(tree, dtype):
   """Cast tree to given dtype, skip if None."""
-  if dtype is not None:
-    return jax.tree_map(lambda t: t.astype(dtype), tree)
-  else:
-    return tree
+  return tree if dtype is None else jax.tree_map(lambda t: t.astype(dtype), tree)
 
 
 def set_diags(a, new_diags):

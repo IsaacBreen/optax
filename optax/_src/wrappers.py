@@ -232,12 +232,12 @@ class MultiSteps:
     return self._opt
 
   def init(self, params: Any) -> MultiStepsState:
-    init_state = MultiStepsState(
+    return MultiStepsState(
         mini_step=jnp.zeros([], dtype=jnp.int32),
         gradient_step=jnp.zeros([], dtype=jnp.int32),
         inner_opt_state=self._opt.init(params),
-        acc_grads=_zeros_tree_like(params))
-    return init_state
+        acc_grads=_zeros_tree_like(params),
+    )
 
   def update(self,
              updates: base.Updates,
